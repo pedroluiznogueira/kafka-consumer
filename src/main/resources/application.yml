@@ -1,6 +1,9 @@
 server:
   port: 8081
 
+topic:
+  name: t.food.order
+
 spring:
   kafka:
     consumer:
@@ -14,6 +17,3 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
     password: password
-
-topic:
-  name: t.food.order
