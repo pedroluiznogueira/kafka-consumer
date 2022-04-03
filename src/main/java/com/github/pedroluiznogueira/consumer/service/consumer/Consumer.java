@@ -21,13 +21,11 @@ public class Consumer {
     private static final String orderTopic = "${topic.name}";
 
     private final ObjectMapper objectMapper;
-    private final ModelMapper modelMapper;
     private final FoodOrderService foodOrderService;
 
     @Autowired
-    public Consumer(ObjectMapper objectMapper, ModelMapper modelMapper, FoodOrderService foodOrderService) {
+    public Consumer(ObjectMapper objectMapper, FoodOrderService foodOrderService) {
         this.objectMapper = objectMapper;
-        this.modelMapper = modelMapper;
         this.foodOrderService = foodOrderService;
     }
 
@@ -36,9 +34,7 @@ public class Consumer {
         log.info("message consumed {}", message);
 
         FoodOrderDto foodOrderDto = objectMapper.readValue(message, FoodOrderDto.class);
-        FoodOrder foodOrder = modelMapper.map(foodOrderDto, FoodOrder.class);
-
-        foodOrderService.persistFoodOrder(foodOrder);
+        foodOrderService.persistFoodOrder(foodOrderDto);
     }
 
 }
